@@ -1,5 +1,5 @@
 /*
- * grunt-contrib-uglify
+ * grunt-contrib-terser
  * http://gruntjs.com/
  *
  * Copyright (c) 2016 "Cowboy" Ben Alman, contributors
@@ -32,7 +32,7 @@ function normalizeLf(string) {
 
 module.exports = function(grunt) {
   // Internal lib.
-  var uglify = require('./lib/uglify').init(grunt);
+  var terser = require('./lib/uglify').init(grunt);
 
   var getAvailableFiles = function (filesArray) {
     return filesArray.filter(function (filepath) {
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
     });
   };
 
-  grunt.registerMultiTask('uglify', 'Minify files with UglifyJS.', function() {
+  grunt.registerMultiTask('terser', 'Minify files with Terser.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       banner: '',
@@ -139,7 +139,7 @@ module.exports = function(grunt) {
       // Minify files, warn and fail on error.
       var result;
       try {
-        result = uglify.minify(availableFiles, f.dest, options);
+        result = terser.minify(availableFiles, f.dest, options);
       } catch (e) {
         console.log(e);
         err = new Error('Uglification failed.');

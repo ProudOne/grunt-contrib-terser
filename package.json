@@ -1,12 +1,12 @@
 {
-  "name": "grunt-contrib-uglify",
-  "description": "Minify JavaScript files with UglifyJS",
-  "version": "3.4.0",
+  "name": "grunt-contrib-terse",
+  "description": "Minify JavaScript files with Terse",
+  "version": "1.0.0",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"
   },
-  "repository": "gruntjs/grunt-contrib-uglify",
+  "repository": "proudone/grunt-contrib-terse",
   "license": "MIT",
   "engines": {
     "node": ">=0.10.0"
@@ -18,7 +18,7 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "maxmin": "^2.1.0",
-    "uglify-js": "~3.4.0",
+    "terser": "latest",
     "uri-path": "^1.0.0"
   },
   "devDependencies": {
@@ -33,6 +33,5 @@
   ],
   "files": [
     "tasks"
-  ],
-  "appveyor_id": "ybtf5vbvtenii561"
+  ]
 }

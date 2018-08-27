@@ -1,5 +1,5 @@
 /*
- * grunt-contrib-uglify
+ * grunt-contrib-terser
  * http://gruntjs.com/
  *
  * Copyright (c) 2016 "Cowboy" Ben Alman, contributors
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    uglify: {
+    terser: {
       compress: {
         files: {
           'tmp/compress.js': ['test/fixtures/src/simple.js']
@@ -174,7 +174,7 @@ module.exports = function(grunt) {
         dest: 'tmp/sourcemap_customRoot.js',
         options: {
           sourceMap: {
-            root: 'https://github.com/RReverser/grunt-contrib-uglify/tree/master/tmp'
+            root: 'https://github.com/RReverser/grunt-contrib-terser/tree/master/tmp'
           }
         }
       },
@@ -453,7 +453,7 @@ module.exports = function(grunt) {
   grunt.registerTask('test', [
     'jshint',
     'clean',
-    'uglify',
+    'terser',
     'nodeunit'
   ]);
 

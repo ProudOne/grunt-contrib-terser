@@ -1,5 +1,5 @@
 /*
- * grunt-contrib-uglify
+ * grunt-contrib-terser
  * https://gruntjs.com/
  *
  * Copyright (c) 2017 "Cowboy" Ben Alman, contributors
@@ -10,9 +10,9 @@
 
 // External libs.
 var path = require('path');
-var UglifyJS = require('uglify-js');
+var Terse = require('terser');
 var uriPath = require('uri-path');
-var domprops = require('uglify-js/tools/domprops');
+var domprops = require('terser/tools/domprops');
 
 // Converts \r\n to \n
 function normalizeLf(string) {
@@ -21,11 +21,11 @@ function normalizeLf(string) {
 
 function toCache(cache, key) {
   if (cache[key]) {
-    cache[key].props = UglifyJS.Dictionary.fromObject(cache[key].props);
+    cache[key].props = Terse.Dictionary.fromObject(cache[key].props);
   } else {
     cache[key] = {
       cname: -1,
-      props: new UglifyJS.Dictionary()
+      props: new Terse.Dictionary()
     };
   }
   return cache[key];
@@ -34,12 +34,12 @@ function toCache(cache, key) {
 exports.init = function(grunt) {
   var exports = {};
 
-  // Minify with UglifyJS.
-  // From https://github.com/mishoo/UglifyJS2
+  // Minify with Terse.
+  // From https://github.com/mishoo/Terse2
   exports.minify = function(files, dest, options) {
     options = options || {};
 
-    grunt.verbose.write('Minifying with UglifyJS...');
+    grunt.verbose.write('Minifying with Terse...');
 
     var totalCode = '';
     var minifyOptions = {
@@ -96,7 +96,7 @@ exports.init = function(grunt) {
         }
         if (options.reserveDOMProperties) {
           domprops.forEach(function(name) {
-            UglifyJS.push_uniq(minifyOptions.mangle.properties.reserved, name);
+            Terse.push_uniq(minifyOptions.mangle.properties.reserved, name);
           });
         }
       }
@@ -106,12 +106,12 @@ exports.init = function(grunt) {
             var obj = JSON.parse(grunt.file.read(file));
             if (minifyOptions.mangle && obj.vars) {
               obj.vars.forEach(function(name) {
-                UglifyJS.push_uniq(minifyOptions.mangle.reserved, name);
+                Terse.push_uniq(minifyOptions.mangle.reserved, name);
               });
             }
             if (minifyOptions.mangle.properties && obj.props) {
               obj.props.forEach(function(name) {
-                UglifyJS.push_uniq(minifyOptions.mangle.properties.reserved, name);
+                Terse.push_uniq(minifyOptions.mangle.properties.reserved, name);
               });
             }
           } catch (ex) {
@@ -121,7 +121,7 @@ exports.init = function(grunt) {
       }
     }
 
-    var result = UglifyJS.minify(files.reduce(function(o, file) {
+    var result = Terse.minify(files.reduce(function(o, file) {
       var code = grunt.file.read(file);
       totalCode += code;
 
@@ -142,7 +142,7 @@ exports.init = function(grunt) {
 
     if (options.nameCache) {
       grunt.file.write(options.nameCache, JSON.stringify(cache, function(key, value) {
-        return value instanceof UglifyJS.Dictionary ? value.toObject() : value;
+        return value instanceof Terse.Dictionary ? value.toObject() : value;
       }));
     }
 
