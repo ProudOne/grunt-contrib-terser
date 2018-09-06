@@ -34,8 +34,29 @@ function toCache(cache, key) {
 exports.init = function(grunt) {
   var exports = {};
 
-  // Minify with Terse.
-  // From https://github.com/fabiosantoscode/terser
+  /**
+   * Minify with Terse
+   * @see https://github.com/fabiosantoscode/terser
+   * @param files
+   * @param dest
+   * @param {object}          options
+   * @param {string}          [options.banner]
+   * @param {boolean|object}  [options.beautify]
+   * @param {boolean|object}  [options.compress]
+   * @param {string}          [options.report]
+   * @param {string[]}        [options.exceptionsFiles]
+   * @param {boolean}         [options.ie8]
+   * @param {boolean|object}  [options.mangle]
+   * @param {string}          [options.nameCache]
+   * @param {boolean|object}  [options.output]
+   * @param {boolean|object}  [options.parse]
+   * @param {boolean}         [options.reserveDOMProperties]
+   * @param {boolean|object}  [options.sourceMap]
+   * @param {string}          [options.generatedSourceMapName]
+   * @param {boolean}         [options.toplevel]
+   * @param {string}          [options.wrap]
+   * @returns *
+   */
   exports.minify = function(files, dest, options) {
     options = options || {};
 
@@ -45,7 +66,6 @@ exports.init = function(grunt) {
     var minifyOptions = {
       compress: options.compress,
       ie8: options.ie8,
-      keep_fnames: options.keep_fnames,
       mangle: options.mangle,
       output: options.output || {},
       parse: options.parse || {},
@@ -80,12 +100,15 @@ exports.init = function(grunt) {
       if (typeof minifyOptions.mangle !== 'object') {
         minifyOptions.mangle = {};
       }
+
       if (cache) {
         minifyOptions.mangle.cache = toCache(cache, 'vars');
       }
+
       if (!Array.isArray(minifyOptions.mangle.reserved)) {
         minifyOptions.mangle.reserved = [];
       }
+
       if (minifyOptions.mangle.properties) {
         if (typeof minifyOptions.mangle.properties !== 'object') {
           minifyOptions.mangle.properties = {};
@@ -102,6 +125,7 @@ exports.init = function(grunt) {
           });
         }
       }
+
       if (options.exceptionsFiles) {
         options.exceptionsFiles.forEach(function(file) {
           try {
@@ -123,21 +147,27 @@ exports.init = function(grunt) {
       }
     }
 
-    var result = Terse.minify(files.reduce(function(o, file) {
+    var sourceMapDir = path.dirname(options.generatedSourceMapName);
+
+    var reducedFiles = files.reduce(function(o, file) {
       var code = grunt.file.read(file);
       totalCode += code;
 
       // The src file name must be relative to the source map for things to work
       var basename = path.basename(file);
-      var fileDir = path.dirname(file);
-      var sourceMapDir = path.dirname(options.generatedSourceMapName);
+      var fileDir  = path.dirname(file);
+
       var relativePath = path.relative(sourceMapDir, fileDir);
+
       var pathPrefix = relativePath ? relativePath + path.sep : '';
 
       // Convert paths to use forward slashes for sourcemap use in the browser
       o[uriPath(pathPrefix + basename)] = code;
       return o;
-    }, {}), minifyOptions);
+    }, {});
+
+    var result = Terse.minify(reducedFiles, minifyOptions);
+
     if (result.error) {
       throw result.error;
     }

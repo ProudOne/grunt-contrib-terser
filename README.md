@@ -1,5 +1,3 @@
-# grunt-contrib-terser v0.0.1
+# Terser for Grunt
 
-> Minify JavaScript files with Terser
-
-This currently fails some tests.
+This currently fails some tests and isn't recommended for production usage.

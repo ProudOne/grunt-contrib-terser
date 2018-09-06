@@ -73,7 +73,7 @@ exports.contrib_uglify = {
     files.forEach(function(file) {
       var actual = read('tmp', file);
       var expected = read('test', 'fixtures', 'expected', file);
-      test.equal(actual, expected, 'task output should equal ' + file);
+      test.equal(actual.trim(), expected.trim(), 'task output should equal ' + file);
     });
 
     test.done();

@@ -2051,7 +2051,7 @@ tap@^7.0.0:
     tap-parser "^2.2.0"
     tmatch "^2.0.1"
 
-terser@latest:
+terser@^3.8.2:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/terser/-/terser-3.8.2.tgz#48b880f949f8d038aca4dfd00a37c53d96ecf9fb"
   dependencies:
