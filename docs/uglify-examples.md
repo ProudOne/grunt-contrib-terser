@@ -97,17 +97,17 @@ grunt.initConfig({
         sourceMap: {
           includeSources: true
         },
-        sourceMapIn: 'example/coffeescript-sourcemap.js', // input sourcemap from a previous compilation
+        sourceMapIn: 'example/coffeescript-sourcemap.js' // input sourcemap from a previous compilation
       },
       files: {
-        'dest/output.min.js': ['src/input.js'],
-      },
-    },
-  },
+        'dest/output.min.js': ['src/input.js']
+      }
+    }
+  }
 });
 ```
 
-Refer to the [UglifyJS SourceMap Documentation](https://github.com/mishoo/UglifyJS2#source-map-options) for more information.
+Refer to the [Terser SourceMap Documentation](https://github.com/fabiosantoscode/terser#source-map-options) for more information.
 
 ## Turn off console warnings
 
@@ -137,7 +137,7 @@ grunt.initConfig({
 Specify `beautify: true` to beautify your code for debugging/troubleshooting purposes.
 Pass an object to manually configure any other output options.
 
-See [UglifyJS documentation](https://github.com/mishoo/UglifyJS2#beautifier-options) for more information.
+See [Terser documentation](https://github.com/fabiosantoscode/terser#beautifier-options) for more information.
 
 ```js
 // Project configuration.
@@ -191,9 +191,9 @@ grunt.initConfig({
 
 ## Conditional compilation
 
-You can also enable UglifyJS conditional compilation. This is commonly used to remove debug code blocks for production builds. This is equivalent to the command line `--define` option.
+You can also enable Terser's conditional compilation. This is commonly used to remove debug code blocks for production builds. This is equivalent to the command line `--define` option.
 
-See [UglifyJS global definitions documentation](https://github.com/mishoo/UglifyJS2#conditional-compilation) for more information.
+See [Terser global definitions documentation](https://github.com/fabiosantoscode/terser#conditional-compilation) for more information.
 
 ```js
 // Project configuration.
@@ -244,34 +244,36 @@ Also exclude jQuery for mangling and ignore all `*.min.js` files.
 
 ```js
 // Project configuration.
-uglify: {
-  dev: {
-    options: {
-      mangle: {
-        reserved: ['jQuery']
-      }
-    },
-    files: [{
-      expand: true,
-      src: ['dist/assets/js/*.js', '!dist/assets/js/*.min.js'],
-      dest: 'dist/assets',
-      cwd: '.',
-      rename: function (dst, src) {
-        // To keep the source js files and make new files as `*.min.js`:
-        // return dst + '/' + src.replace('.js', '.min.js');
-        // Or to override to src:
-        return src;
-      }
-    }]
+grunt.initConfig({
+  uglify: {
+    dev: {
+      options: {
+        mangle: {
+          reserved: ['jQuery']
+        }
+      },
+      files: [{
+        expand: true,
+        src: ['dist/assets/js/*.js', '!dist/assets/js/*.min.js'],
+        dest: 'dist/assets',
+        cwd: '.',
+        rename: function (dst, src) {
+          // To keep the source js files and make new files as `*.min.js`:
+          return dst + '/' + src.replace('.js', '.min.js');
+          // Or to override to src:
+          // return src;
+        }
+      }]
+    }
   }
-},
+});
 ```
 
 ## Turn on object property name mangling
 
 This configuration will turn on object property name mangling, but not mangle built-in browser object properties.
 Additionally, variables and object properties listed in the `myExceptionsFile.json` will be mangled. For more info,
-on the format of the exception file format please see the [UglifyJS docs](https://www.npmjs.com/package/uglify-js).
+on the format of the exception file format please see the [Terser docs](https://www.npmjs.com/package/terser).
 
 ```js
 // Project configuration.
@@ -295,7 +297,7 @@ grunt.initConfig({
 
 ## Turn on use of name mangling cache
 
-Turn on use of name mangling cache to coordinate mangled symbols between outputted uglify files. uglify will the
+Turn on use of name mangling cache to coordinate mangled symbols between outputted uglify files. Terser will then
 generate a JSON cache file with the name provided in the options. Note: this generated file uses the same JSON format
 as the `exceptionsFiles` files.
 
@@ -304,7 +306,7 @@ as the `exceptionsFiles` files.
 grunt.initConfig({
   uglify: {
     options: {
-      nameCache: '.tmp/grunt-uglify-cache.json',
+      nameCache: '.tmp/grunt-uglify-cache.json'
     },
     my_target: {
       files: {

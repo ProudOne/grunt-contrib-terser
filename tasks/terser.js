@@ -32,7 +32,7 @@ function normalizeLf(string) {
 
 module.exports = function(grunt) {
   // Internal lib.
-  var terser = require('./lib/uglify').init(grunt);
+  var terser = require('./lib/terser').init(grunt);
 
   var getAvailableFiles = function (filesArray) {
     return filesArray.filter(function (filepath) {

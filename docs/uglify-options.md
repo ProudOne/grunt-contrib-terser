@@ -1,44 +1,24 @@
 # Options
 
-This task primarily delegates to [UglifyJS](https://github.com/mishoo/UglifyJS2), so please consider their documentation as required reading for advanced configuration.
-
-
-#### Deprecated options from `2.x`
-
-Option                  | Replacement
------------------------ | -----------
-ASCIIOnly               | output.ascii_only
-enclose                 | &mdash;
-exportAll               | &mdash;
-expression              | parse.expression
-indentLevel             | output.indent_level
-mangleProperties        | mangle.properties
-maxLineLen              | output.max\_line_len
-preserveComments        | output.comments
-quoteStyle              | output.quote_style
-screwIE8                | !ie8
-sourceMapIncludeSources | sourceMap.includeSources
-sourceMapRoot           | sourceMap.root
-sourceMapUrl            | sourceMap.url
-
+This task primarily delegates to [Terser](https://github.com/fabiosantoscode/terser), so please consider their documentation as required reading for advanced configuration.
 
 ## mangle
 Type: `Boolean` `Object`  
 Default: `{}`
 
-Turn on or off mangling with default options. If an `Object` is specified, it is passed directly to `ast.mangle_names()` *and* `ast.compute_char_frequency()` (mimicking command line behavior). [View all options here](https://github.com/mishoo/UglifyJS2#mangler-options).
+Turn on or off mangling with default options. If an `Object` is specified, it is passed directly to `ast.mangle_names()` *and* `ast.compute_char_frequency()` (mimicking command line behavior). [View all options here](https://github.com/fabiosantoscode/terser#mangler-options).
 
 ## compress
 Type: `Boolean` `Object`  
 Default: `{}`
 
-Turn on or off source compression with default options. If an `Object` is specified, it is passed as options to `UglifyJS.Compressor()`. [View all options here](https://github.com/mishoo/UglifyJS2#compressor-options).
+Turn on or off source compression with default options. If an `Object` is specified, it is passed as options to `Terser.Compressor()`. [View all options here](https://github.com/fabiosantoscode/terser#compressor-options).
 
 ## beautify
 Type: `Boolean` `Object`  
 Default: `false`
 
-Turns on beautification of the generated source code. [View all options here](https://github.com/mishoo/UglifyJS2#beautifier-options)
+Turns on beautification of the generated source code. [View all options here](https://github.com/fabiosantoscode/terser#beautifier-options)
 
 #### parse.expression
 Type: `Boolean`  
@@ -52,7 +32,7 @@ Choices: `'min'`, `'gzip'`
 Default: `'min'`
 
 Report minification result or both minification and gzip results.
-This is useful to see exactly how well uglify-js is performing but using `'gzip'` will make the task take 5-10x longer to complete. [Example output](https://github.com/sindresorhus/maxmin#readme).
+This is useful to see exactly how well terser is performing but using `'gzip'` will make the task take 5-10x longer to complete. [Example output](https://github.com/sindresorhus/maxmin#readme).
 
 ## sourceMap
 Type: `Boolean`  
@@ -143,7 +123,7 @@ Set this to `true` if you still care about full compliance with Internet Explore
 Type: `Boolean` `Object`  
 Default: `false`
 
-Turn on or off property mangling with default options. If an `Object` is specified, it is passed directly to `ast.mangle_properties()` (mimicking command line behavior). [View all options here](https://github.com/mishoo/UglifyJS2#mangler-options).
+Turn on or off property mangling with default options. If an `Object` is specified, it is passed directly to `ast.mangle_properties()` (mimicking command line behavior). [View all options here](https://github.com/fabiosantoscode/terser#mangler-options).
 
 ## reserveDOMProperties
 Type: `Boolean`  
@@ -156,14 +136,14 @@ Type: `Array`
 Default: `[]`
 
 Use this with `mangle.properties` to pass one or more JSON files containing a list of variables and object properties
-that should not be mangled. See the [UglifyJS docs](https://www.npmjs.com/package/uglify-js) for more info on the file syntax.
+that should not be mangled. See the [Terser docs](https://www.npmjs.com/package/terser) for more info on the file syntax.
 
 ## nameCache
 Type: `String`  
 Default: `''`
 
-A string that is a path to a JSON cache file that uglify will create and use to coordinate symbol mangling between
-multiple runs of uglify. Note: this generated file uses the same JSON format as the `exceptionsFiles` files.
+A string that is a path to a JSON cache file that terser will create and use to coordinate symbol mangling between
+multiple runs of terser. Note: this generated file uses the same JSON format as the `exceptionsFiles` files.
 
 ## output.quote_style
 Type: `Integer`  

@@ -1,3 +1,7 @@
+v4.0.0
+  date: 2018-09-06
+  changes:
+    - Migrate to Terser v3.8.2
 v3.4.0:
   date: 2018-07-29
   changes:

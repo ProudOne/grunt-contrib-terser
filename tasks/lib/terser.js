@@ -35,7 +35,7 @@ exports.init = function(grunt) {
   var exports = {};
 
   // Minify with Terse.
-  // From https://github.com/mishoo/Terse2
+  // From https://github.com/fabiosantoscode/terser
   exports.minify = function(files, dest, options) {
     options = options || {};
 
@@ -61,7 +61,9 @@ exports.init = function(grunt) {
     if (options.beautify) {
       minifyOptions.output.beautify = true;
       for (var key in options.beautify) {
-        minifyOptions.output[key] = options.beautify[key];
+        if(options.beautify.hasOwnProperty(key)) {
+          minifyOptions.output[key] = options.beautify[key];
+        }
       }
     }
 
